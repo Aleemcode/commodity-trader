@@ -1,6 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import {
+  CocoaTrunk,
+  GroundPlane,
+  RestingPods,
+} from "@/components/scene/CocoaGround"
 import { LivingPortrait } from "./LivingPortrait"
 
 /**
@@ -122,36 +127,30 @@ export function Curtain({
         }}
       />
 
-      {/* Ground: three bands receding into haze. */}
+      {/* The ground: a cocoa farm, drawn rather than implied. The plane
+          settles and the two foreground pieces drop a little further,
+          so the illustration parts company with the sky as the splash
+          lifts instead of sliding off in one slab. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-[42%]"
+        className="absolute inset-0"
         style={{
-          transform: lifting ? "translateY(14%)" : "translateY(0)",
+          transform: lifting ? "translateY(5%)" : "translateY(0)",
           transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        <svg
-          viewBox="0 0 1440 420"
-          preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
-        >
-          <path
-            d="M0 150 C200 118 360 146 560 138 C780 128 940 156 1140 144 C1280 136 1370 148 1440 142 L1440 420 L0 420 Z"
-            fill="var(--ground-far)"
-            opacity="0.5"
-          />
-          <path
-            d="M0 232 C220 198 400 228 620 220 C840 212 1000 240 1200 228 C1320 220 1390 230 1440 224 L1440 420 L0 420 Z"
-            fill="var(--ground)"
-            opacity="0.34"
-          />
-          <path
-            d="M0 318 C240 288 420 320 660 312 C880 304 1040 330 1240 318 C1340 312 1400 320 1440 316 L1440 420 L0 420 Z"
-            fill="var(--canopy)"
-            opacity="0.3"
-          />
-        </svg>
+        <GroundPlane />
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          transform: lifting ? "translateY(11%)" : "translateY(0)",
+          transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <CocoaTrunk />
+        <RestingPods />
       </div>
 
       {/* Content */}

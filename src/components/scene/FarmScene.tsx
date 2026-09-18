@@ -2,15 +2,17 @@
 
 import { useEffect, useRef } from "react"
 import { CocoaPod } from "./CocoaPod"
+import { CocoaTrunk, GroundPlane, RestingPods } from "./CocoaGround"
 
 /**
  * A cocoa farm at golden hour, with the diary in the middle of it.
  *
- * The scene is deliberately thin: a low sun, three bands of ground
- * receding into haze, one trunk leaning in from the top left with a
- * few pods on it, and some dust in the light. No canopy, no repeating
- * leaves. The page is a diary page — the farm is the light it is being
- * read in, not the subject.
+ * The scene is deliberately thin: a low sun, one ground plane with a
+ * cocoa trunk growing out of it at the left and two pods lying at the
+ * right, one limb leaning in from the top with a few pods on it, and
+ * some dust in the light. No canopy, no repeating leaves. The page is a
+ * diary page — the farm is the light it is being read in, not the
+ * subject.
  *
  * Depth comes from parallax rather than from drawing more. Each band
  * carries a `--depth` and the whole scene shares one eased pointer
@@ -94,102 +96,18 @@ export function FarmScene({ photos = [] }: { photos?: (string | undefined)[] }) 
           />
         </Band>
 
-        {/* Far ridge — the horizon, softened almost to nothing.
-            Every band is masked away at its own top edge, so the ground
-            fades up into the light instead of drawing a hard line
-            across whatever text happens to sit at that height. */}
-        <Band depth={4}>
-          <svg
-            viewBox="0 0 1440 300"
-            preserveAspectRatio="none"
-            className="absolute inset-x-[-4%] bottom-[30%] h-[22vh] w-[108%]"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 62%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, black 62%)",
-            }}
-          >
-            <path
-              d="M0 190 C180 160 320 176 470 168 C640 158 760 186 920 176 C1080 166 1250 182 1440 170 L1440 300 L0 300 Z"
-              fill="var(--ground-far)"
-              opacity="0.5"
-            />
-          </svg>
+        {/* The ground: one plane, a cauliflorous trunk cut off by the
+            left edge, and two pods lying at the right. Three parallax
+            depths, because the thing nearest the reader has to move
+            most or the whole scene reads as a flat picture. */}
+        <Band depth={5}>
+          <GroundPlane />
         </Band>
-
-        {/* Mid ground */}
-        <Band depth={9}>
-          <svg
-            viewBox="0 0 1440 320"
-            preserveAspectRatio="none"
-            className="absolute inset-x-[-6%] bottom-[12%] h-[26vh] w-[112%]"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 58%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, black 58%)",
-            }}
-          >
-            <path
-              d="M0 210 C210 176 380 206 560 196 C760 184 900 214 1090 202 C1240 192 1350 206 1440 198 L1440 320 L0 320 Z"
-              fill="var(--ground)"
-              opacity="0.34"
-            />
-          </svg>
+        <Band depth={14}>
+          <CocoaTrunk className="opacity-70" />
         </Band>
-
-        {/* Near ground, with a handful of blades at the corners only —
-            enough to say "field", far short of a lawn. */}
-        <Band depth={18}>
-          <svg
-            viewBox="0 0 1440 260"
-            preserveAspectRatio="none"
-            className="absolute inset-x-[-8%] bottom-[-3%] h-[20vh] w-[116%]"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 54%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, black 54%)",
-            }}
-          >
-            <path
-              d="M0 150 C240 120 420 154 640 146 C860 138 1010 164 1200 152 C1320 144 1390 152 1440 146 L1440 260 L0 260 Z"
-              fill="var(--canopy)"
-              opacity="0.26"
-            />
-          </svg>
-
-          <svg
-            viewBox="0 0 400 160"
-            className="absolute bottom-0 left-0 h-[16vh] w-auto"
-            style={{ opacity: 0.3 }}
-          >
-            {[10, 42, 74, 120, 168, 210].map((x, i) => (
-              <path
-                key={x}
-                d={`M${x} 160 C${x + 6} 110 ${x - 4} 70 ${x + 12 + i * 2} 28`}
-                fill="none"
-                stroke="var(--canopy)"
-                strokeWidth={2.4}
-                strokeLinecap="round"
-              />
-            ))}
-          </svg>
-
-          <svg
-            viewBox="0 0 400 160"
-            className="absolute bottom-0 right-0 h-[13vh] w-auto"
-            style={{ opacity: 0.26, transform: "scaleX(-1)" }}
-          >
-            {[20, 58, 96, 150].map((x, i) => (
-              <path
-                key={x}
-                d={`M${x} 160 C${x + 5} 116 ${x - 5} 76 ${x + 10 + i * 3} 36`}
-                fill="none"
-                stroke="var(--canopy)"
-                strokeWidth={2.2}
-                strokeLinecap="round"
-              />
-            ))}
-          </svg>
+        <Band depth={22}>
+          <RestingPods className="opacity-75" bottom="3.25rem" />
         </Band>
 
         {/* Dust in the light. */}
