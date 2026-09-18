@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { LivingPortrait } from "./LivingPortrait"
 
 /**
@@ -21,19 +21,37 @@ import { LivingPortrait } from "./LivingPortrait"
  *
  *   and it clears itself on a timeout as well as on `load`, so a stalled
  *   image can never leave a reader looking at a splash screen forever.
+ *
+ * `requireEnter` decides whether it waits. On the front door it does:
+ * the reader gets the screen for as long as they want it and opens the
+ * diary when they are ready, which is the whole point of having a first
+ * screen worth looking at. Arriving on a deep link from LinkedIn it
+ * does not — that reader came for one particular post, and an
+ * interstitial standing between them and it is a toll, not a welcome.
+ *
+ * The button only appears once the page is actually ready. A button
+ * that does nothing yet is worse than no button, so until then the
+ * sweep runs and there is nothing to press.
  */
 export function Curtain({
-
   name,
   role,
   title,
+  requireEnter = true,
 }: {
-
   name: string
   role?: string
   title: string
+  requireEnter?: boolean
 }) {
   const [phase, setPhase] = useState<"showing" | "lifting" | "gone">("showing")
+  const [ready, setReady] = useState(false)
+  const enterRef = useRef<HTMLButtonElement>(null)
+
+  const open = () => {
+    setPhase("lifting")
+    setTimeout(() => setPhase("gone"), 1200)
+  }
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -42,7 +60,7 @@ export function Curtain({
     const hold = params.get("splash") === "hold"
     if (hold) return
 
-    const floor = new Promise<void>((resolve) => setTimeout(resolve, 2200))
+    const floor = new Promise<void>((resolve) => setTimeout(resolve, 1400))
     const loaded = new Promise<void>((resolve) => {
       if (document.readyState === "complete") return resolve()
       window.addEventListener("load", () => resolve(), { once: true })
@@ -51,10 +69,19 @@ export function Curtain({
     })
 
     void Promise.all([floor, loaded]).then(() => {
-      setPhase("lifting")
-      setTimeout(() => setPhase("gone"), 1200)
+      setReady(true)
+      if (!requireEnter) {
+        setPhase("lifting")
+        setTimeout(() => setPhase("gone"), 1200)
+      }
     })
-  }, [])
+  }, [requireEnter])
+
+  // Put the keyboard on the button the moment there is one, so Enter or
+  // Space opens the diary without anyone having to hunt for it.
+  useEffect(() => {
+    if (ready && requireEnter) enterRef.current?.focus()
+  }, [ready, requireEnter])
 
   if (phase === "gone") return null
   const lifting = phase === "lifting"
@@ -163,19 +190,61 @@ export function Curtain({
           </p>
         </div>
 
-        <div
-          className="relative mt-9 h-px w-36 overflow-hidden"
-          style={{
-            background: "color-mix(in oklab, var(--ink) 12%, transparent)",
-          }}
-        >
-          <span
-            className="absolute inset-y-0 left-0 w-1/3"
-            style={{
-              background: "var(--accent)",
-              animation: "curtain-sweep 1.6s ease-in-out infinite",
-            }}
-          />
+        {/* Until the page is ready, a sweep and nothing to press. Then
+            the sweep is replaced in the same spot by the way in, so the
+            eye does not have to travel. */}
+        <div className="relative mt-9 flex h-11 items-center justify-center">
+          {!ready && (
+            <div
+              className="h-px w-36 overflow-hidden"
+              style={{
+                background: "color-mix(in oklab, var(--ink) 12%, transparent)",
+              }}
+            >
+              <span
+                className="block h-px w-1/3"
+                style={{
+                  background: "var(--accent)",
+                  animation: "curtain-sweep 1.6s ease-in-out infinite",
+                }}
+              />
+            </div>
+          )}
+
+          {ready && requireEnter && (
+            <button
+              ref={enterRef}
+              type="button"
+              onClick={open}
+              className="stamp group/enter cursor-pointer rounded-full border px-7 py-3 text-[9.5px] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4"
+              style={
+                {
+                  color: "var(--accent)",
+                  borderColor:
+                    "color-mix(in oklab, var(--accent) 42%, transparent)",
+                  outlineColor: "var(--accent)",
+                  animation:
+                    "enter-in 640ms cubic-bezier(0.16, 1, 0.3, 1) both",
+                } as React.CSSProperties
+              }
+              onMouseEnter={(event) => {
+                event.currentTarget.style.background = "var(--accent)"
+                event.currentTarget.style.color = "var(--paper)"
+                event.currentTarget.style.borderColor = "var(--accent)"
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.background = "transparent"
+                event.currentTarget.style.color = "var(--accent)"
+                event.currentTarget.style.borderColor =
+                  "color-mix(in oklab, var(--accent) 42%, transparent)"
+              }}
+            >
+              Open the diary
+              <span className="ml-2 inline-block transition-transform duration-300 group-hover/enter:translate-x-1">
+                →
+              </span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -188,6 +257,10 @@ export function Curtain({
         @keyframes curtain-sweep {
           0%   { transform: translateX(-110%); }
           100% { transform: translateX(340%); }
+        }
+        @keyframes enter-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>
