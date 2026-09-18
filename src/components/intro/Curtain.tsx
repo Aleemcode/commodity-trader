@@ -23,12 +23,12 @@ import { LivingPortrait } from "./LivingPortrait"
  *   image can never leave a reader looking at a splash screen forever.
  */
 export function Curtain({
-  frames,
+
   name,
   role,
   title,
 }: {
-  frames: string[]
+
   name: string
   role?: string
   title: string
@@ -137,7 +137,6 @@ export function Curtain({
       >
         <div className="relative h-[40svh] max-h-[400px] w-[min(78vw,380px)]">
           <LivingPortrait
-            frames={frames}
             alt={`A drawn portrait of ${name}`}
             className="h-full w-full"
           />

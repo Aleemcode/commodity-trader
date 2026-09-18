@@ -13,12 +13,14 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/ayodejiobalogun/",
 
   /**
-   * The splash and frontispiece drawings, in order: looking left,
-   * straight ahead, looking right. Cut from one sketch sheet and
-   * aligned on the top of the head so the turn does not bob.
+   * The living portrait: a 20-second palindrome loop of the drawn head,
+   * cropped square, on a pure-white ground so `multiply` leaves the
+   * paper alone. WebM first, MP4 for anything that cannot read it, and
+   * the poster is frame one of the same encode so the hand-over from
+   * still to moving is invisible.
    */
-  portraitFrames: ["/portrait-0.webp", "/portrait-1.webp", "/portrait-2.webp"],
   portraitVideo: "/deji.webm",
+  portraitVideoMp4: "/deji.mp4",
   portraitPoster: "/deji-poster.webp",
 
   /**

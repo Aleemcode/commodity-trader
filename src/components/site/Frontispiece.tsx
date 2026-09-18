@@ -34,7 +34,6 @@ export function Frontispiece({ variant }: { variant: "column" | "hero" }) {
         }
       >
         <LivingPortrait
-          frames={SITE.portraitFrames}
           alt={`A drawn portrait of ${SITE.author}`}
           className="h-full w-full"
           amplitude={column ? 0.85 : 1}

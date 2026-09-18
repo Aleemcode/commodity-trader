@@ -19,7 +19,6 @@ export function Page({ children }: { children: ReactNode }) {
     <AccentProvider>
       <FarmScene photos={SITE.cocoaPhotos} />
       <Curtain
-        frames={SITE.portraitFrames}
         name={SITE.author}
         role={SITE.role}
         title={SITE.title}
