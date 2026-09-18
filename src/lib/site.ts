@@ -19,6 +19,7 @@ export const SITE = {
    */
   portraitFrames: ["/portrait-0.webp", "/portrait-1.webp", "/portrait-2.webp"],
   portraitVideo: "/deji.webm",
+  portraitPoster: "/deji-poster.webp",
 
   /**
    * The photographs the hanging pods dissolve into, in the order the

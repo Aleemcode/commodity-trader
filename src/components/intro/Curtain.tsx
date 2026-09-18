@@ -33,42 +33,25 @@ export function Curtain({
   role?: string
   title: string
 }) {
-  const [phase, setPhase] = useState<"showing" | "lifting" | "gone">("gone")
+  const [phase, setPhase] = useState<"showing" | "lifting" | "gone">("showing")
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const forced = params.has("splash")
     // `?splash=hold` keeps it up until the page is reloaded — for
-    // showing the opening to someone without racing a two-second
-    // animation, and for capturing it.
+    // showing the opening to someone without racing an animation
     const hold = params.get("splash") === "hold"
-
-    let seen = false
-    try {
-      seen = sessionStorage.getItem("diary:entered") === "1"
-    } catch {
-      seen = false
-    }
-    if (seen && !forced) return
-
-    setPhase("showing")
     if (hold) return
 
-    const floor = new Promise<void>((resolve) => setTimeout(resolve, 2500))
+    const floor = new Promise<void>((resolve) => setTimeout(resolve, 2200))
     const loaded = new Promise<void>((resolve) => {
       if (document.readyState === "complete") return resolve()
       window.addEventListener("load", () => resolve(), { once: true })
       // A stalled asset must never strand the reader behind the splash.
-      setTimeout(resolve, 6000)
+      setTimeout(resolve, 5000)
     })
 
     void Promise.all([floor, loaded]).then(() => {
       setPhase("lifting")
-      try {
-        sessionStorage.setItem("diary:entered", "1")
-      } catch {
-        /* private mode — it simply plays again next time */
-      }
       setTimeout(() => setPhase("gone"), 1200)
     })
   }, [])
