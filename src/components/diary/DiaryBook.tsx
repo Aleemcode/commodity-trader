@@ -559,7 +559,7 @@ export function DiaryBook({
 
       {/* Footer: the controls, flanked by the neighbouring entries so a
           reader can keep going without returning to the rail. */}
-      <div className="relative z-10 grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 pb-7 pt-4 md:px-10">
+      <div className="relative z-10 flex shrink-0 flex-col items-center gap-3.5 px-5 pb-7 pt-4 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:gap-4 md:px-10">
         {onNavigate && neighbours?.previous ? (
           <button
             type="button"
@@ -577,34 +577,50 @@ export function DiaryBook({
           <span className="hidden sm:block" />
         )}
 
-        <div className="col-start-2 flex items-center justify-center gap-5">
-        <button
-          type="button"
-          onClick={goPrevious}
-          disabled={spread <= 0}
-          aria-label="Previous page"
-          className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
-        >
-          <ChevronLeft className="h-4 w-4" strokeWidth={1.6} />
-        </button>
+        <div className="flex items-center justify-center gap-5 sm:col-start-2">
+          <button
+            type="button"
+            onClick={goPrevious}
+            disabled={spread <= 0}
+            aria-label="Previous page"
+            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
+          >
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.6} />
+          </button>
 
-        <p className="stamp min-w-28 text-center text-[9px] text-[var(--ink-faint)]">
-          {pageCount > 0
-            ? geometry.spread
-              ? `Spread ${spread + 1} of ${lastSpread + 1}`
-              : `Page ${spread + 1} of ${pageCount}`
-            : ""}
-        </p>
+          <p className="stamp min-w-28 text-center text-[9px] text-[var(--ink-faint)]">
+            {pageCount > 0
+              ? geometry.spread
+                ? `Spread ${spread + 1} of ${lastSpread + 1}`
+                : `Page ${spread + 1} of ${pageCount}`
+              : ""}
+          </p>
 
-        <button
-          type="button"
-          onClick={goNext}
-          disabled={spread >= lastSpread}
-          aria-label="Next page"
-          className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
-        >
-          <ChevronRight className="h-4 w-4" strokeWidth={1.6} />
-        </button>
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={spread >= lastSpread}
+            aria-label="Next page"
+            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
+          >
+            <ChevronRight className="h-4 w-4" strokeWidth={1.6} />
+          </button>
+        </div>
+
+        {/* Mobile exit button right at natural thumb reach */}
+        <div className="flex w-full items-center justify-center sm:hidden">
+          <button
+            type="button"
+            onClick={() => {
+              playCover()
+              onClose()
+            }}
+            aria-label="Close diary entry"
+            className="stamp flex items-center gap-1.5 rounded-full border border-[color-mix(in_oklab,var(--ink)_22%,transparent)] bg-[color-mix(in_oklab,var(--paper)_92%,transparent)] px-5 py-2 text-[9.5px] text-[var(--ink-soft)] shadow-sm backdrop-blur transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] active:scale-95"
+          >
+            <X className="h-3.5 w-3.5 text-[var(--ink-faint)]" strokeWidth={2} />
+            <span>Close entry</span>
+          </button>
         </div>
 
         {onNavigate && neighbours?.next ? (
