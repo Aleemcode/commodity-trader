@@ -1,0 +1,415 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
+@import "@fontsource/courier-prime/400.css";
+@import "@fontsource/courier-prime/700.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ *
+ *  THE TRADER'S LEDGER — art direction
+ *
+ *  Reference points: a manila field notebook carried through a harvest
+ *  season, warehouse receipts, a rubber date stamp, ledger ruling.
+ *  Everything is warm. Nothing is pure black or pure white.
+ * ------------------------------------------------------------------ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-paper-edge: var(--paper-edge);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-oxide: var(--oxide);
+  --color-ochre: var(--ochre);
+  --color-leather: var(--leather);
+  --color-leather-lit: var(--leather-lit);
+  --color-gold: var(--gold);
+
+  --font-sans: "Newsreader Variable", ui-serif, Georgia, serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "Courier Prime", ui-monospace, monospace;
+
+  --radius: 0.25rem;
+}
+
+:root {
+  /* Field: the desk the diary sits on */
+  --background: #17100a;
+  --foreground: #efe3cf;
+
+  /* Paper */
+  --paper: #f4ecdb;
+  --paper-deep: #e8dcc3;
+  --paper-edge: #d6c6a6;
+
+  /* Ink */
+  --ink: #241a10;
+  --ink-soft: #5c4a35;
+  --ink-faint: #8a785f;
+  --rule: rgba(36, 26, 16, 0.09);
+
+  /* Accents */
+  --oxide: #a8391f;
+  --ochre: #c0873a;
+  --leather: #2b1d12;
+  --leather-lit: #46301e;
+  --gold: #c9a227;
+
+  /* Lifeline overrides */
+  --lifeline-font: "Newsreader Variable", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  * {
+    border-color: color-mix(in oklab, var(--ink) 12%, transparent);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-optical-sizing: auto;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--ochre) 45%, transparent);
+    color: var(--ink);
+  }
+
+  /* A diary is read, not skimmed — let the scrollbar be quiet. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--ochre) 35%, transparent);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Texture
+ * ------------------------------------------------------------------ */
+
+/* Fine paper grain. Kept as a utility so it can be layered on any
+   surface at a chosen strength via --grain-opacity. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity, 0.34);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.grain-screen::after {
+  mix-blend-mode: overlay;
+}
+
+/* Ledger ruling for diary pages. */
+.ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--rule-step, 30px) - 1px),
+    var(--rule) calc(var(--rule-step, 30px) - 1px),
+    var(--rule) var(--rule-step, 30px)
+  );
+  background-position: 0 var(--rule-offset, 0px);
+}
+
+/* Warm vignette for the desk surface. */
+.desk {
+  background:
+    radial-gradient(
+      ellipse 120% 80% at 50% 0%,
+      color-mix(in oklab, var(--leather-lit) 55%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 50% 110%,
+      color-mix(in oklab, #000 45%, transparent) 0%,
+      transparent 60%
+    ),
+    var(--background);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Type helpers
+ * ------------------------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-variation-settings:
+    "SOFT" 20,
+    "WONK" 1;
+  letter-spacing: -0.02em;
+}
+
+.stamp {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.6875rem;
+}
+
+.prose-diary p {
+  margin-bottom: 1.05em;
+  text-wrap: pretty;
+}
+
+.prose-diary p:last-child {
+  margin-bottom: 0;
+}
+
+.prose-diary em {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* Drop cap on the first paragraph of an entry's first spread. */
+.diary-dropcap::first-letter {
+  font-family: var(--font-display);
+  font-variation-settings:
+    "SOFT" 30,
+    "WONK" 1;
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding-right: 0.08em;
+  padding-top: 0.06em;
+  color: var(--oxide);
+}
+
+.prose-diary.has-dropcap > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-variation-settings:
+    "SOFT" 30,
+    "WONK" 1;
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding-right: 0.08em;
+  padding-top: 0.06em;
+  color: var(--oxide);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Lifeline — intro animation plumbing (from the lifeline registry)
+ * ------------------------------------------------------------------ */
+
+@keyframes lifeline-rail-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes lifeline-marker-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes lifeline-labels-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lifeline-rail-intro {
+  transform: scaleX(var(--lifeline-intro-progress, 0));
+  transform-origin: left center;
+}
+
+.lifeline-rail-intro-vertical {
+  transform: scaleY(var(--lifeline-intro-progress, 0));
+  transform-origin: top center;
+}
+
+.lifeline-marker-intro {
+  opacity: 0;
+  animation: lifeline-marker-in var(--lifeline-marker-fade-ms, 420ms)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lifeline-labels-intro {
+  opacity: 0;
+  animation: lifeline-labels-in var(--lifeline-labels-ms, 600ms)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lifeline-labels.is-pinned {
+  z-index: 20;
+}
+
+.lifeline-typeset {
+  font-family: var(--lifeline-font);
+}
+
+/* ------------------------------------------------------------------ *
+ *  The book
+ * ------------------------------------------------------------------ */
+
+.book-scene {
+  perspective: 2600px;
+  perspective-origin: 50% 46%;
+}
+
+.book-3d {
+  transform-style: preserve-3d;
+}
+
+/* A single turning leaf. Two faces, hinged on the spine. */
+.leaf {
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.leaf-face {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.leaf-face-back {
+  transform: rotateY(180deg);
+}
+
+/* Light falling across a turning page: a gradient wash whose opacity is
+   driven from JS as the leaf swings. */
+.leaf-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.36) 0%,
+    rgba(0, 0, 0, 0.1) 22%,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
+
+/* The gutter shadow where the two visible pages meet the spine. */
+.gutter-left {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 78%,
+    rgba(58, 40, 24, 0.13) 94%,
+    rgba(58, 40, 24, 0.3) 100%
+  );
+}
+
+.gutter-right {
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0) 78%,
+    rgba(58, 40, 24, 0.13) 94%,
+    rgba(58, 40, 24, 0.3) 100%
+  );
+}
+
+@keyframes book-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, -180px) rotateX(16deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0deg) scale(1);
+  }
+}
+
+.book-rise {
+  animation: book-rise 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ink-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ink-in {
+  opacity: 0;
+  animation: ink-in 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Loader — the sketch draws itself
+ * ------------------------------------------------------------------ */
+
+@keyframes sketch-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0) rotate(-0.35deg);
+  }
+}
+
+.breathe {
+  animation: breathe 5.2s ease-in-out infinite;
+}
+
+@keyframes loader-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
