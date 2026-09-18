@@ -397,21 +397,20 @@ export function useLifelineScroll(
      * card has nothing to align to a nav sitting outside its own box and
      * measures itself instead.
      */
-    const followChrome =
-      !embed ||
-      (logoLeft !== null &&
-        navRight !== null &&
-        logoLeft >= 0 &&
-        navRight <= stageRect.width &&
-        navRight > logoLeft)
+    const canFollowLogo =
+      logoLeft !== null && logoLeft >= 0 && logoLeft < stageRect.width
+    const canFollowNav =
+      navRight !== null &&
+      navRight > (canFollowLogo && logoLeft !== null ? logoLeft : 0) &&
+      navRight <= stageRect.width
 
-    if (followChrome && logoLeft !== null) {
+    if (canFollowLogo && logoLeft !== null) {
       startInset.current = logoLeft
     } else {
       startInset.current = LIFELINE_DEFAULT_START_INSET
     }
 
-    if (followChrome && navRight !== null) {
+    if (canFollowNav && navRight !== null) {
       endInset.current = navRight
     } else {
       // No chrome to align with, or none this module spans — end the track
