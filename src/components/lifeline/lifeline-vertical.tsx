@@ -48,7 +48,7 @@ function RailTick() {
   return (
     <span
       aria-hidden="true"
-      className="block h-px w-[10px] bg-[#7a6446] transition-colors duration-300"
+      className="block h-px w-[10px] bg-[var(--ink-faint)] transition-colors duration-300"
     />
   )
 }
@@ -135,13 +135,13 @@ function LifelineVerticalTextEvent({ event }: { event: LifelineEvent }) {
             {" "}
             {image.video ? (
               <Film
-                className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[#8a7455] transition-colors duration-300"
+                className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[var(--ink-faint)] transition-colors duration-300"
                 strokeWidth={1.75}
                 aria-hidden="true"
               />
             ) : (
               <ImageIcon
-                className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[#8a7455] transition-colors duration-300"
+                className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[var(--ink-faint)] transition-colors duration-300"
                 strokeWidth={1.75}
                 aria-hidden="true"
               />
@@ -223,7 +223,7 @@ const LifelineVerticalEntry = forwardRef<
         }}
       >
         <div className={`${GRID_CLASS} items-center`}>
-          <p className="text-right text-[11px] font-medium leading-4 tabular-nums text-[#9d8564] transition-colors duration-300">
+          <p className="text-right text-[11px] font-medium leading-4 tabular-nums text-[var(--ink-faint)] transition-colors duration-300">
             {age}
           </p>
 
@@ -231,7 +231,7 @@ const LifelineVerticalEntry = forwardRef<
             <RailTick />
           </div>
 
-          <p className="whitespace-nowrap text-[15px] font-medium leading-5 tabular-nums text-[#9d8564] transition-colors duration-300">
+          <p className="whitespace-nowrap text-[15px] font-medium leading-5 tabular-nums text-[var(--ink-faint)] transition-colors duration-300">
             {marker.label ?? marker.year}
           </p>
         </div>
@@ -240,7 +240,7 @@ const LifelineVerticalEntry = forwardRef<
           <div className={`${GRID_CLASS} mt-6`}>
             <div aria-hidden="true" />
             <div aria-hidden="true" />
-            <div className="min-w-0 text-[#9d8564] transition-colors duration-300">
+            <div className="min-w-0 text-[var(--ink-faint)] transition-colors duration-300">
               {marker.badges && marker.badges.length > 0 && (
                 <div className="mb-3 flex items-center justify-start gap-2">
                   {marker.badges.map((badge) => (
@@ -297,7 +297,7 @@ const LifelineVerticalEntry = forwardRef<
               )}
 
               {people.length > 0 && (
-                <div className="mt-6 border-t border-[#4a3826]/70 pt-5 transition-colors duration-300">
+                <div className="mt-6 border-t border-[var(--rule)] pt-5 transition-colors duration-300">
                   <LifelinePeople people={people} allowWrap />
                 </div>
               )}
@@ -449,12 +449,12 @@ export function LifelineVertical({
       style={showIntro ? introStyle : undefined}
     >
       <div className={cn(`${GRID_CLASS} mb-6 items-end`, showIntro && "lifeline-labels-intro")}>
-        <p className="text-right text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-[#9d8564] transition-colors duration-300">
-          Age
+        <p className="text-right text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-[var(--ink-faint)] transition-colors duration-300">
+          Year
         </p>
         <div aria-hidden="true" />
-        <p className="text-[11px] font-medium uppercase leading-5 tracking-[0.08em] text-[#9d8564] transition-colors duration-300">
-          Years
+        <p className="text-[11px] font-medium uppercase leading-5 tracking-[0.08em] text-[var(--ink-faint)] transition-colors duration-300">
+          Month
         </p>
       </div>
 
@@ -466,7 +466,7 @@ export function LifelineVertical({
         >
           <div
             className={cn(
-              "h-full w-px border-l border-dashed border-[#4a3826] transition-colors duration-300",
+              "h-full w-px border-l border-dashed border-[color-mix(in_oklab,var(--ink)_22%,transparent)] transition-colors duration-300",
               showIntro && "lifeline-rail-intro-vertical",
             )}
           />

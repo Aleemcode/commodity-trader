@@ -460,7 +460,7 @@ export function DiaryBook({
 
       {/* Header */}
       <div className="relative z-10 flex shrink-0 items-center justify-between px-5 pt-5 md:px-8">
-        <p className="stamp text-[10px] text-[color-mix(in_oklab,var(--gold)_70%,transparent)]">
+        <p className="stamp text-[10px] text-[color-mix(in_oklab,var(--accent)_70%,transparent)]">
           Diary of a Commodity Trader
         </p>
 
@@ -469,7 +469,7 @@ export function DiaryBook({
             type="button"
             onClick={toggleMute}
             aria-label={muted ? "Turn page sound on" : "Turn page sound off"}
-            className="rounded-full border border-[#5a4530]/60 p-2 text-[#b59a76] transition-colors hover:border-[var(--gold)]/60 hover:text-[var(--gold)]"
+            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
           >
             {muted ? (
               <VolumeX className="h-3.5 w-3.5" strokeWidth={1.6} />
@@ -484,7 +484,7 @@ export function DiaryBook({
               onClose()
             }}
             aria-label="Close the diary"
-            className="rounded-full border border-[#5a4530]/60 p-2 text-[#b59a76] transition-colors hover:border-[var(--gold)]/60 hover:text-[var(--gold)]"
+            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
           >
             <X className="h-3.5 w-3.5" strokeWidth={1.6} />
           </button>
@@ -498,7 +498,7 @@ export function DiaryBook({
         onPointerUp={onPointerUp}
       >
         {!pages ? (
-          <p className="stamp text-[10px] text-[#8a7455]">Opening…</p>
+          <p className="stamp text-[10px] text-[var(--ink-faint)]">Opening…</p>
         ) : (
           <div
             className="book-3d book-rise relative"
@@ -566,10 +566,10 @@ export function DiaryBook({
             onClick={() => onNavigate(neighbours.previous!.slug)}
             className="group hidden min-w-0 text-left sm:block"
           >
-            <span className="stamp block text-[8.5px] text-[#6f5c43]">
+            <span className="stamp block text-[8.5px] text-[var(--ink-faint)]">
               Earlier
             </span>
-            <span className="display mt-1 block truncate text-[13px] text-[#b59a76] transition-colors group-hover:text-[var(--gold)]">
+            <span className="display mt-1 block truncate text-[13px] text-[var(--ink-soft)] transition-colors group-hover:text-[var(--accent)]">
               {neighbours.previous.title}
             </span>
           </button>
@@ -583,12 +583,12 @@ export function DiaryBook({
           onClick={goPrevious}
           disabled={spread <= 0}
           aria-label="Previous page"
-          className="rounded-full border border-[#5a4530]/60 p-2 text-[#b59a76] transition-[color,border-color,opacity] hover:border-[var(--gold)]/60 hover:text-[var(--gold)] disabled:opacity-25"
+          className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
         >
           <ChevronLeft className="h-4 w-4" strokeWidth={1.6} />
         </button>
 
-        <p className="stamp min-w-28 text-center text-[9px] text-[#8a7455]">
+        <p className="stamp min-w-28 text-center text-[9px] text-[var(--ink-faint)]">
           {pageCount > 0
             ? geometry.spread
               ? `Spread ${spread + 1} of ${lastSpread + 1}`
@@ -601,7 +601,7 @@ export function DiaryBook({
           onClick={goNext}
           disabled={spread >= lastSpread}
           aria-label="Next page"
-          className="rounded-full border border-[#5a4530]/60 p-2 text-[#b59a76] transition-[color,border-color,opacity] hover:border-[var(--gold)]/60 hover:text-[var(--gold)] disabled:opacity-25"
+          className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
         >
           <ChevronRight className="h-4 w-4" strokeWidth={1.6} />
         </button>
@@ -613,10 +613,10 @@ export function DiaryBook({
             onClick={() => onNavigate(neighbours.next!.slug)}
             className="group hidden min-w-0 text-right sm:block"
           >
-            <span className="stamp block text-[8.5px] text-[#6f5c43]">
+            <span className="stamp block text-[8.5px] text-[var(--ink-faint)]">
               Later
             </span>
-            <span className="display mt-1 block truncate text-[13px] text-[#b59a76] transition-colors group-hover:text-[var(--gold)]">
+            <span className="display mt-1 block truncate text-[13px] text-[var(--ink-soft)] transition-colors group-hover:text-[var(--accent)]">
               {neighbours.next.title}
             </span>
           </button>

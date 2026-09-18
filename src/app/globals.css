@@ -1,75 +1,170 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/fraunces/opsz.css";
-@import "@fontsource-variable/newsreader/opsz.css";
-@import "@fontsource-variable/newsreader/opsz-italic.css";
-@import "@fontsource/courier-prime/400.css";
-@import "@fontsource/courier-prime/700.css";
-
-@custom-variant dark (&:is(.dark *));
+@import "@fontsource-variable/bricolage-grotesque/index.css";
+@import "@fontsource/space-grotesk/300.css";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
 
 /* ------------------------------------------------------------------ *
- *  THE TRADER'S LEDGER — art direction
+ *  A COCOA FARM AT GOLDEN HOUR
  *
- *  Reference points: a manila field notebook carried through a harvest
- *  season, warehouse receipts, a rubber date stamp, ledger ruling.
- *  Everything is warm. Nothing is pure black or pure white.
+ *  One mode, light. The five accent swatches do not just tint a
+ *  button — they move the hour of the day: the sky, the ground, the
+ *  haze and the low sun are all derived from the accent, so picking a
+ *  swatch walks the whole scene from harvest afternoon to last light.
+ *
+ *  Every colour below is a token. Nothing in a component should hard
+ *  code a hex, or the switcher stops working for that element.
  * ------------------------------------------------------------------ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
 
   --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
   --color-paper-deep: var(--paper-deep);
-  --color-paper-edge: var(--paper-edge);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-ink-faint: var(--ink-faint);
   --color-rule: var(--rule);
-  --color-oxide: var(--oxide);
-  --color-ochre: var(--ochre);
-  --color-leather: var(--leather);
-  --color-leather-lit: var(--leather-lit);
-  --color-gold: var(--gold);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-sun: var(--sun);
+  --color-ground: var(--ground);
+  --color-ground-far: var(--ground-far);
+  --color-canopy: var(--canopy);
+  --color-bark: var(--bark);
 
-  --font-sans: "Newsreader Variable", ui-serif, Georgia, serif;
-  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
-  --font-mono: "Courier Prime", ui-monospace, monospace;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Space Grotesk",
+    ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --radius: 0.25rem;
+  --radius: 0.375rem;
 }
 
-:root {
-  /* Field: the desk the diary sits on */
-  --background: #17100a;
-  --foreground: #efe3cf;
+/* ---- Default: cocoa, golden hour ---------------------------------- */
 
-  /* Paper */
-  --paper: #f4ecdb;
-  --paper-deep: #e8dcc3;
-  --paper-edge: #d6c6a6;
+:root,
+:root[data-accent="cocoa"] {
+  --paper: #f6efe1;
+  --paper-warm: #f2e7d3;
+  --paper-deep: #e7d9c0;
 
-  /* Ink */
-  --ink: #241a10;
-  --ink-soft: #5c4a35;
-  --ink-faint: #8a785f;
-  --rule: rgba(36, 26, 16, 0.09);
+  --ink: #2a2018;
+  --ink-soft: #5f5142;
+  --ink-faint: #93826e;
+  --rule: rgba(42, 32, 24, 0.10);
 
-  /* Accents */
-  --oxide: #a8391f;
-  --ochre: #c0873a;
-  --leather: #2b1d12;
-  --leather-lit: #46301e;
-  --gold: #c9a227;
+  --accent: #a7562c;
+  --accent-deep: #6f3318;
+  --accent-soft: #e2b189;
 
-  /* Lifeline overrides */
-  --lifeline-font: "Newsreader Variable", ui-serif, Georgia, serif;
+  --sun: #f0c070;
+  --ground: #b9995f;
+  --ground-far: #d9c79c;
+  --canopy: #7c6a3f;
+  --bark: #6b4a2c;
+}
+
+/* ---- Harvest: green, mid-afternoon -------------------------------- */
+
+:root[data-accent="harvest"] {
+  --paper: #f4f1e2;
+  --paper-warm: #ecead3;
+  --paper-deep: #dedcbf;
+
+  --ink: #21281d;
+  --ink-soft: #4d5945;
+  --ink-faint: #85907a;
+  --rule: rgba(33, 40, 29, 0.10);
+
+  --accent: #4f7340;
+  --accent-deep: #2f4726;
+  --accent-soft: #b4c79f;
+
+  --sun: #e3d582;
+  --ground: #9aa662;
+  --ground-far: #ccd0a2;
+  --canopy: #56693c;
+  --bark: #5c5230;
+}
+
+/* ---- Ochre: dry season, high sun ---------------------------------- */
+
+:root[data-accent="ochre"] {
+  --paper: #f8f0dc;
+  --paper-warm: #f4e6c7;
+  --paper-deep: #ecd9ad;
+
+  --ink: #2e2415;
+  --ink-soft: #64543a;
+  --ink-faint: #9c8865;
+  --rule: rgba(46, 36, 21, 0.10);
+
+  --accent: #b9832a;
+  --accent-deep: #7c5514;
+  --accent-soft: #edc77f;
+
+  --sun: #f7d268;
+  --ground: #c8a45d;
+  --ground-far: #e6d3a0;
+  --canopy: #8a7233;
+  --bark: #745227;
+}
+
+/* ---- Indigo: last light ------------------------------------------- */
+
+:root[data-accent="indigo"] {
+  --paper: #eef0e6;
+  --paper-warm: #e4e7dd;
+  --paper-deep: #d3d8cc;
+
+  --ink: #1e2331;
+  --ink-soft: #46506a;
+  --ink-faint: #7d879e;
+  --rule: rgba(30, 35, 49, 0.11);
+
+  --accent: #3f4f82;
+  --accent-deep: #26304f;
+  --accent-soft: #a3aecd;
+
+  --sun: #e7b98d;
+  --ground: #8d90a6;
+  --ground-far: #c3c7cf;
+  --canopy: #4a5470;
+  --bark: #4b4553;
+}
+
+/* ---- Clay: the red earth after rain ------------------------------- */
+
+:root[data-accent="clay"] {
+  --paper: #f7ece5;
+  --paper-warm: #f2e0d5;
+  --paper-deep: #e8cfc0;
+
+  --ink: #2f211c;
+  --ink-soft: #66504a;
+  --ink-faint: #9d8279;
+  --rule: rgba(47, 33, 28, 0.10);
+
+  --accent: #a9453f;
+  --accent-deep: #6f2823;
+  --accent-soft: #e0a79c;
+
+  --sun: #f1b184;
+  --ground: #bd8a72;
+  --ground-far: #e0c2b1;
+  --canopy: #7f5544;
+  --bark: #6d4132;
 }
 
 @layer base {
   * {
-    border-color: color-mix(in oklab, var(--ink) 12%, transparent);
+    border-color: var(--rule);
   }
 
   html {
@@ -79,23 +174,21 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-optical-sizing: auto;
-  }
-
-  ::selection {
-    background: color-mix(in oklab, var(--ochre) 45%, transparent);
+    background-color: var(--paper);
     color: var(--ink);
   }
 
-  /* A diary is read, not skimmed — let the scrollbar be quiet. */
+  ::selection {
+    background: color-mix(in oklab, var(--accent-soft) 70%, transparent);
+    color: var(--ink);
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background: color-mix(in oklab, var(--ochre) 35%, transparent);
+    background: color-mix(in oklab, var(--accent) 30%, transparent);
     border-radius: 999px;
   }
   ::-webkit-scrollbar-track {
@@ -103,28 +196,81 @@
   }
 }
 
+/* The whole page crossfades when the hour changes. Transitioning
+   `background-color` and `color` globally is usually a sin; here it is
+   the point — the switcher should feel like light moving, not like a
+   stylesheet swapping. Transforms and opacity are left alone so the
+   scene's own motion is unaffected. */
+:root {
+  --theme-ease: 620ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body,
+body * {
+  transition:
+    background-color var(--theme-ease),
+    border-color var(--theme-ease),
+    color var(--theme-ease),
+    fill var(--theme-ease),
+    stroke var(--theme-ease);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Type
+ * ------------------------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-variation-settings:
+    "wdth" 100,
+    "opsz" 24;
+  letter-spacing: -0.022em;
+  font-weight: 620;
+}
+
+/* Space Grotesk at reading length needs more air than a serif does —
+   its x-height is large and its ascenders are short, so lines lock
+   together unless the leading is opened up. */
+.prose-body {
+  font-size: 15px;
+  line-height: 1.72;
+  letter-spacing: -0.003em;
+}
+
+.stamp {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+
+.diary-dropcap::first-letter {
+  font-family: var(--font-display);
+  float: left;
+  font-size: 3em;
+  line-height: 0.86;
+  font-weight: 700;
+  padding-right: 0.09em;
+  padding-top: 0.05em;
+  color: var(--accent);
+}
+
 /* ------------------------------------------------------------------ *
  *  Texture
  * ------------------------------------------------------------------ */
 
-/* Fine paper grain. Kept as a utility so it can be layered on any
-   surface at a chosen strength via --grain-opacity. */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: var(--grain-opacity, 0.34);
+  opacity: var(--grain-opacity, 0.22);
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   background-size: 180px 180px;
 }
 
-.grain-screen::after {
-  mix-blend-mode: overlay;
-}
-
-/* Ledger ruling for diary pages. */
 .ruled {
   background-image: repeating-linear-gradient(
     to bottom,
@@ -134,82 +280,6 @@
     var(--rule) var(--rule-step, 30px)
   );
   background-position: 0 var(--rule-offset, 0px);
-}
-
-/* Warm vignette for the desk surface. */
-.desk {
-  background:
-    radial-gradient(
-      ellipse 120% 80% at 50% 0%,
-      color-mix(in oklab, var(--leather-lit) 55%, transparent) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 90% 60% at 50% 110%,
-      color-mix(in oklab, #000 45%, transparent) 0%,
-      transparent 60%
-    ),
-    var(--background);
-}
-
-/* ------------------------------------------------------------------ *
- *  Type helpers
- * ------------------------------------------------------------------ */
-
-.display {
-  font-family: var(--font-display);
-  font-variation-settings:
-    "SOFT" 20,
-    "WONK" 1;
-  letter-spacing: -0.02em;
-}
-
-.stamp {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.6875rem;
-}
-
-.prose-diary p {
-  margin-bottom: 1.05em;
-  text-wrap: pretty;
-}
-
-.prose-diary p:last-child {
-  margin-bottom: 0;
-}
-
-.prose-diary em {
-  font-style: italic;
-  color: var(--ink-soft);
-}
-
-/* Drop cap on the first paragraph of an entry's first spread. */
-.diary-dropcap::first-letter {
-  font-family: var(--font-display);
-  font-variation-settings:
-    "SOFT" 30,
-    "WONK" 1;
-  float: left;
-  font-size: 3.1em;
-  line-height: 0.82;
-  padding-right: 0.08em;
-  padding-top: 0.06em;
-  color: var(--oxide);
-}
-
-.prose-diary.has-dropcap > p:first-of-type::first-letter {
-  font-family: var(--font-display);
-  font-variation-settings:
-    "SOFT" 30,
-    "WONK" 1;
-  float: left;
-  font-size: 3.1em;
-  line-height: 0.82;
-  padding-right: 0.08em;
-  padding-top: 0.06em;
-  color: var(--oxide);
 }
 
 /* ------------------------------------------------------------------ *
@@ -272,7 +342,7 @@
 }
 
 .lifeline-typeset {
-  font-family: var(--lifeline-font);
+  font-family: var(--font-sans);
 }
 
 /* ------------------------------------------------------------------ *
@@ -288,7 +358,6 @@
   transform-style: preserve-3d;
 }
 
-/* A single turning leaf. Two faces, hinged on the spine. */
 .leaf {
   transform-style: preserve-3d;
   transform-origin: left center;
@@ -307,28 +376,25 @@
   transform: rotateY(180deg);
 }
 
-/* Light falling across a turning page: a gradient wash whose opacity is
-   driven from JS as the leaf swings. */
 .leaf-shade {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.36) 0%,
-    rgba(0, 0, 0, 0.1) 22%,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.08) 22%,
     rgba(0, 0, 0, 0) 55%,
-    rgba(255, 255, 255, 0.12) 100%
+    rgba(255, 255, 255, 0.14) 100%
   );
 }
 
-/* The gutter shadow where the two visible pages meet the spine. */
 .gutter-left {
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0) 78%,
-    rgba(58, 40, 24, 0.13) 94%,
-    rgba(58, 40, 24, 0.3) 100%
+    rgba(80, 58, 36, 0.09) 94%,
+    rgba(80, 58, 36, 0.22) 100%
   );
 }
 
@@ -336,8 +402,8 @@
   background: linear-gradient(
     to left,
     rgba(0, 0, 0, 0) 78%,
-    rgba(58, 40, 24, 0.13) 94%,
-    rgba(58, 40, 24, 0.3) 100%
+    rgba(80, 58, 36, 0.09) 94%,
+    rgba(80, 58, 36, 0.22) 100%
   );
 }
 
@@ -373,13 +439,22 @@
 }
 
 /* ------------------------------------------------------------------ *
- *  Loader — the sketch draws itself
+ *  Scene motion
  * ------------------------------------------------------------------ */
 
-@keyframes sketch-draw {
-  to {
-    stroke-dashoffset: 0;
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(var(--sway-from, -1.1deg));
   }
+  50% {
+    transform: rotate(var(--sway-to, 1.1deg));
+  }
+}
+
+.sway {
+  animation: sway var(--sway-ms, 7s) ease-in-out infinite;
+  transform-origin: var(--sway-origin, 50% 0%);
 }
 
 @keyframes breathe {
@@ -396,11 +471,26 @@
   animation: breathe 5.2s ease-in-out infinite;
 }
 
-@keyframes loader-out {
-  to {
+@keyframes mote {
+  0% {
+    transform: translate3d(0, 0, 0);
     opacity: 0;
-    visibility: hidden;
   }
+  12% {
+    opacity: var(--mote-peak, 0.75);
+  }
+  88% {
+    opacity: var(--mote-peak, 0.75);
+  }
+  100% {
+    transform: translate3d(var(--mote-x, 18px), var(--mote-y, -120px), 0);
+    opacity: 0;
+  }
+}
+
+.mote {
+  animation: mote var(--mote-ms, 14s) linear infinite;
+  animation-delay: var(--mote-delay, 0s);
 }
 
 @media (prefers-reduced-motion: reduce) {

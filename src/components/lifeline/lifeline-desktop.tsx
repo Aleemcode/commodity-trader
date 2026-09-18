@@ -161,7 +161,7 @@ export function LifelineDesktop({
               // Fades out on its right edge so the mask does not read as
               // a box sitting on the desk.
               background:
-                "linear-gradient(to right, #17100a 0%, #17100a 58%, rgba(23,16,10,0) 100%)",
+                "linear-gradient(to right, color-mix(in oklab, var(--paper) 88%, transparent) 0%, color-mix(in oklab, var(--paper) 70%, transparent) 46%, transparent 100%)",
             }}
           >
             <div className={cn(showIntro && "lifeline-labels-intro")}>
@@ -176,7 +176,7 @@ export function LifelineDesktop({
             >
               <div
                 className={cn(
-                  "h-px w-full border-t border-dashed border-[#4a3826] transition-colors duration-300",
+                  "h-px w-full border-t border-dashed border-[color-mix(in_oklab,var(--ink)_22%,transparent)] transition-colors duration-300",
                   showIntro && "lifeline-rail-intro",
                 )}
               />

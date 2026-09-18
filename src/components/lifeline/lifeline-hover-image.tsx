@@ -248,7 +248,7 @@ export function LifelineHoverImageProvider({
         <img
           ref={imageRef}
           alt=""
-          className="w-[280px] scale-95 rounded-xl shadow-2xl ring-1 ring-black/35 transition-[transform,box-shadow] duration-200 ease-out"
+          className="w-[280px] scale-95 rounded-xl shadow-2xl ring-1 ring-[color-mix(in_oklab,var(--ink)_16%,transparent)] transition-[transform,box-shadow] duration-200 ease-out"
           decoding="async"
         />
         <video
@@ -260,7 +260,7 @@ export function LifelineHoverImageProvider({
           // Landscape fills the same 280px card as images; portrait is
           // capped by height instead, matching the floating cards'
           // scale (180x320) so tall clips don't tower over the cursor.
-          className="max-h-[320px] w-auto max-w-[280px] scale-95 rounded-xl shadow-2xl ring-1 ring-black/35 transition-[transform,box-shadow] duration-200 ease-out"
+          className="max-h-[320px] w-auto max-w-[280px] scale-95 rounded-xl shadow-2xl ring-1 ring-[color-mix(in_oklab,var(--ink)_16%,transparent)] transition-[transform,box-shadow] duration-200 ease-out"
           style={{ display: "none" }}
         />
       </div>

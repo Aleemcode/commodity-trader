@@ -267,7 +267,7 @@ export function LifelineLightbox({
     >
       <div
         className={cn(
-          "absolute inset-0 cursor-zoom-out bg-[#0f0a06]/85 transition-opacity",
+          "absolute inset-0 cursor-zoom-out bg-[color-mix(in_oklab,var(--ink)_78%,transparent)] transition-opacity",
           entered ? "opacity-100" : "opacity-0",
         )}
         // Synced to the media's travel — a faster fade left the clone
@@ -277,7 +277,7 @@ export function LifelineLightbox({
       />
       <figure
         ref={figureRef}
-        className="absolute cursor-zoom-out overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/35"
+        className="absolute cursor-zoom-out overflow-hidden rounded-xl shadow-2xl ring-1 ring-[color-mix(in_oklab,var(--ink)_16%,transparent)]"
         style={{
           left,
           top,

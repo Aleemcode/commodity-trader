@@ -68,7 +68,7 @@ export function LifelineEventText({
             href={segment.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-[#8a7455] underline-offset-2 transition-colors duration-300 group-hover:text-[#f4e8d3] group-hover:decoration-[var(--ochre)]"
+            className="underline decoration-[color-mix(in_oklab,var(--ink)_32%,transparent)] underline-offset-2 transition-colors duration-300 group-hover:text-[var(--ink)] group-hover:decoration-[var(--accent)]"
           >
             {segment.value}
           </a>

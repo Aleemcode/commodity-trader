@@ -77,7 +77,7 @@ function Inline({ text }: { text: string }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={(event) => event.stopPropagation()}
-        className="underline decoration-[color-mix(in_oklab,var(--ochre)_70%,transparent)] decoration-1 underline-offset-[3px] transition-colors hover:text-[var(--oxide)]"
+        className="underline decoration-[color-mix(in_oklab,var(--accent)_70%,transparent)] decoration-1 underline-offset-[3px] transition-colors hover:text-[var(--accent)]"
       >
         {match[1]}
       </a>,
@@ -112,7 +112,7 @@ export function DiaryBlockView({
     case "opening":
       return (
         <header className="pb-7">
-          <p className="stamp text-[10px] text-[color-mix(in_oklab,var(--oxide)_85%,transparent)]">
+          <p className="stamp text-[10px] text-[color-mix(in_oklab,var(--accent)_85%,transparent)]">
             {formatLongDate(entry.date)}
           </p>
           <h1 className="display mt-3 text-[clamp(1.5rem,2.4vw,2.15rem)] font-semibold leading-[1.08] text-[var(--ink)]">
@@ -126,7 +126,7 @@ export function DiaryBlockView({
           <span
             aria-hidden="true"
             className="mt-6 block h-px w-16"
-            style={{ background: "var(--oxide)", opacity: 0.55 }}
+            style={{ background: "var(--accent)", opacity: 0.55 }}
           />
         </header>
       )
@@ -202,7 +202,7 @@ export function DiaryBlockView({
         <div className="flex gap-3 pb-[0.85em]">
           <span
             className="stamp shrink-0 pt-[0.4em] text-[10px] tabular-nums"
-            style={{ color: "var(--oxide)" }}
+            style={{ color: "var(--accent)" }}
           >
             {block.marker.padStart(2, "0")}
           </span>
@@ -221,7 +221,7 @@ export function DiaryBlockView({
           <span
             aria-hidden="true"
             className="absolute left-0 top-[0.35em] bottom-[1.4em] w-[2px]"
-            style={{ background: "var(--ochre)", opacity: 0.6 }}
+            style={{ background: "var(--accent)", opacity: 0.6 }}
           />
           <p className="display text-[16.5px] italic leading-[1.55] text-[var(--ink-soft)]">
             <Inline text={block.text} />
@@ -251,9 +251,9 @@ export function DiaryBlockView({
                   key={tag}
                   className="stamp -rotate-[1.5deg] rounded-[2px] border px-2 py-1 text-[9px]"
                   style={{
-                    color: "color-mix(in oklab, var(--oxide) 90%, transparent)",
+                    color: "color-mix(in oklab, var(--accent) 90%, transparent)",
                     borderColor:
-                      "color-mix(in oklab, var(--oxide) 45%, transparent)",
+                      "color-mix(in oklab, var(--accent) 45%, transparent)",
                   }}
                 >
                   {tag}
@@ -266,7 +266,7 @@ export function DiaryBlockView({
               href={entry.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="stamp mt-5 inline-block border-b pb-0.5 text-[9px] text-[var(--ink-soft)] transition-colors hover:text-[var(--oxide)]"
+              className="stamp mt-5 inline-block border-b pb-0.5 text-[9px] text-[var(--ink-soft)] transition-colors hover:text-[var(--accent)]"
               style={{ borderColor: "var(--rule)" }}
             >
               Read the original post →

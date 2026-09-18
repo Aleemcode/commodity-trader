@@ -12,10 +12,10 @@ export function LifelineStickyLabels() {
       aria-hidden="true"
     >
       <div className="flex flex-col items-start text-left">
-        <p className="mb-5 h-4 text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-[#9d8564] transition-colors duration-300">
+        <p className="mb-5 h-4 text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-[var(--ink-faint)] transition-colors duration-300">
           Year
         </p>
-        <p className="mb-6 h-5 text-[11px] font-medium uppercase leading-5 tracking-[0.08em] text-[#9d8564] transition-colors duration-300">
+        <p className="mb-6 h-5 text-[11px] font-medium uppercase leading-5 tracking-[0.08em] text-[var(--ink-faint)] transition-colors duration-300">
           Month
         </p>
       </div>

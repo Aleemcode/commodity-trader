@@ -65,20 +65,20 @@ export const LifelineMarkerColumn = forwardRef<
         }}
       >
         <span
-          className="absolute left-0 top-[var(--lifeline-rail)] z-10 h-[10px] w-px -translate-y-1/2 bg-[#7a6446] transition-colors duration-300 group-hover:bg-[var(--ochre)]"
+          className="absolute left-0 top-[var(--lifeline-rail)] z-10 h-[10px] w-px -translate-y-1/2 bg-[var(--ink-faint)] transition-colors duration-300 group-hover:bg-[var(--accent)]"
           aria-hidden="true"
         />
 
         <div className="flex w-full flex-col items-start text-left">
-          <p className="mb-5 h-4 text-[11px] font-medium leading-4 tabular-nums text-[#9d8564] transition-colors duration-300 group-hover:text-[#f4e8d3]">
+          <p className="mb-5 h-4 text-[11px] font-medium leading-4 tabular-nums text-[var(--ink-faint)] transition-colors duration-300 group-hover:text-[var(--ink)]">
             {age}
           </p>
 
-          <p className="mb-6 h-5 whitespace-nowrap text-[15px] font-medium leading-5 tabular-nums text-[#9d8564] transition-colors duration-300 group-hover:text-[#f4e8d3]">
+          <p className="mb-6 h-5 whitespace-nowrap text-[15px] font-medium leading-5 tabular-nums text-[var(--ink-faint)] transition-colors duration-300 group-hover:text-[var(--ink)]">
             {marker.label ?? marker.year}
           </p>
 
-          <div className="relative w-full pb-10 text-[#9d8564] transition-colors duration-300 group-hover:text-[#f4e8d3]">
+          <div className="relative w-full pb-10 text-[var(--ink-faint)] transition-colors duration-300 group-hover:text-[var(--ink)]">
             {/* When this column carries people, the content block reserves
                 the band's height as a floor: short and average columns put
                 their portraits on the same line as every other column, and
@@ -175,13 +175,13 @@ export const LifelineMarkerColumn = forwardRef<
                           {" "}
                           {image.video ? (
                             <Film
-                              className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[#8a7455] transition-colors duration-300"
+                              className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[var(--ink-faint)] transition-colors duration-300"
                               strokeWidth={1.75}
                               aria-hidden="true"
                             />
                           ) : (
                             <ImageIcon
-                              className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[#8a7455] transition-colors duration-300"
+                              className="ml-0.5 inline-block h-3 w-3 -translate-y-px text-[var(--ink-faint)] transition-colors duration-300"
                               strokeWidth={1.75}
                               aria-hidden="true"
                             />

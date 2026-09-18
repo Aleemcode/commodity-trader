@@ -16,7 +16,7 @@ export function LifelineLegend({
   items?: LifelineLegendItem[]
 }) {
   return (
-    <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-[#9d8564]">
+    <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-[var(--ink-faint)]">
       {items.map((item) => (
         <li key={item.type} className="flex items-center gap-2">
           <span

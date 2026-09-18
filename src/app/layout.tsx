@@ -23,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="desk min-h-dvh">{children}</body>
+      <body className="min-h-dvh">{children}</body>
     </html>
   )
 }

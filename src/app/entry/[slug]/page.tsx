@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { DiaryTimeline } from "@/components/diary/DiaryTimeline"
-import { SiteShell } from "@/components/site/Shell"
+import { Page } from "@/components/site/Page"
 import { getEntries, getEntry } from "@/lib/entries"
 import { SITE } from "@/lib/site"
 
@@ -46,8 +46,8 @@ export default async function EntryPage({ params }: Params) {
   if (!entry) notFound()
 
   return (
-    <SiteShell>
+    <Page>
       <DiaryTimeline entries={getEntries()} initialSlug={slug} />
-    </SiteShell>
+    </Page>
   )
 }

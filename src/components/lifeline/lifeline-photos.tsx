@@ -171,7 +171,7 @@ export function LifelinePhotoCard({
       >
         <div
           className={cn(
-            "overflow-hidden rounded-xl shadow-xl ring-1 ring-black/35 transition-[transform,box-shadow] duration-200 ease-out",
+            "overflow-hidden rounded-xl shadow-xl ring-1 ring-[color-mix(in_oklab,var(--ink)_16%,transparent)] transition-[transform,box-shadow] duration-200 ease-out",
             animateIntro && "lifeline-marker-intro",
             active
               ? "scale-[1.05] shadow-2xl"

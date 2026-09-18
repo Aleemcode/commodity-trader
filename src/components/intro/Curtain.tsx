@@ -4,47 +4,62 @@ import { useEffect, useState } from "react"
 import { LivingPortrait } from "./LivingPortrait"
 
 /**
- * The flyleaf.
+ * The splash.
  *
- * The loader is the first page of the diary rather than a spinner over
- * the site: cream paper, the drawn portrait, his name. It lifts like a
- * page being turned back, and what is underneath is the desk with the
- * timeline on it — so the first three seconds already explain what the
- * site is.
+ * A horizon with the light low behind it, the drawn head in the sky
+ * above, his name and the diary's title beneath — the composition
+ * Aleem asked for, built from the theme rather than from a picture, so
+ * it moves with the accent instead of ignoring it.
  *
- * It lifts on the later of the window's load event and a short floor,
- * because a loader that flashes is worse than no loader, and it lifts
- * only once per session: a diary you come back to should not make you
- * stand at the front door every time.
+ * Three fixes over the first version, all of which were real bugs:
+ *
+ *   it renders on every route, not only on `/`, so a link pasted under
+ *   a LinkedIn post still opens with it;
+ *
+ *   `?splash` forces it to replay, so it can be demonstrated without
+ *   clearing site data;
+ *
+ *   and it clears itself on a timeout as well as on `load`, so a stalled
+ *   image can never leave a reader looking at a splash screen forever.
  */
 export function Curtain({
   frames,
   name,
   role,
+  title,
 }: {
   frames: string[]
   name: string
   role?: string
+  title: string
 }) {
-  const [phase, setPhase] = useState<"idle" | "showing" | "lifting" | "gone">(
-    "gone",
-  )
+  const [phase, setPhase] = useState<"showing" | "lifting" | "gone">("gone")
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const forced = params.has("splash")
+    // `?splash=hold` keeps it up until the page is reloaded — for
+    // showing the opening to someone without racing a two-second
+    // animation, and for capturing it.
+    const hold = params.get("splash") === "hold"
+
     let seen = false
     try {
       seen = sessionStorage.getItem("diary:entered") === "1"
     } catch {
       seen = false
     }
-    if (seen) return
+    if (seen && !forced) return
 
     setPhase("showing")
+    if (hold) return
 
-    const floor = new Promise<void>((resolve) => setTimeout(resolve, 2400))
+    const floor = new Promise<void>((resolve) => setTimeout(resolve, 2500))
     const loaded = new Promise<void>((resolve) => {
-      if (document.readyState === "complete") resolve()
-      else window.addEventListener("load", () => resolve(), { once: true })
+      if (document.readyState === "complete") return resolve()
+      window.addEventListener("load", () => resolve(), { once: true })
+      // A stalled asset must never strand the reader behind the splash.
+      setTimeout(resolve, 6000)
     })
 
     void Promise.all([floor, loaded]).then(() => {
@@ -52,14 +67,13 @@ export function Curtain({
       try {
         sessionStorage.setItem("diary:entered", "1")
       } catch {
-        /* private mode — the flyleaf simply turns again next time */
+        /* private mode — it simply plays again next time */
       }
-      setTimeout(() => setPhase("gone"), 1100)
+      setTimeout(() => setPhase("gone"), 1200)
     })
   }, [])
 
   if (phase === "gone") return null
-
   const lifting = phase === "lifting"
 
   return (
@@ -68,31 +82,77 @@ export function Curtain({
       role="status"
       aria-live="polite"
       aria-label="Opening the diary"
+      style={{
+        opacity: lifting ? 0 : 1,
+        transition: "opacity 1100ms cubic-bezier(0.4, 0, 0.2, 1)",
+      }}
     >
+      {/* Sky */}
       <div
-        className="grain absolute inset-0 flex flex-col items-center justify-center"
+        className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 90% 70% at 50% 42%, var(--paper) 0%, var(--paper-deep) 78%, #d8c9ab 100%)",
-          "--grain-opacity": "0.3",
-          transform: lifting
-            ? "translateY(-102%) rotate(-1.2deg)"
-            : "translateY(0) rotate(0deg)",
-          transformOrigin: "50% 100%",
-          transition:
-            "transform 1050ms cubic-bezier(0.7, 0, 0.25, 1), opacity 1050ms ease",
-          opacity: lifting ? 0.2 : 1,
-          boxShadow: "0 40px 90px rgba(0,0,0,0.6)",
-        } as React.CSSProperties}
-      >
-        {/* Faint ruling, so it is paper and not a colour. */}
-        <div
-          aria-hidden="true"
-          className="ruled pointer-events-none absolute inset-0 opacity-70"
-          style={{ ["--rule-step" as string]: "34px" }}
-        />
+            "linear-gradient(to bottom, var(--paper) 0%, var(--paper) 38%, var(--paper-warm) 70%, var(--paper-deep) 100%)",
+        }}
+      />
 
-        <div className="relative h-[42vh] max-h-[400px] w-[min(80vw,400px)]">
+      {/* The sun, low and just behind the ridge. */}
+      <div
+        aria-hidden="true"
+        className="absolute"
+        style={{
+          left: "50%",
+          top: "62%",
+          width: "92vmax",
+          height: "92vmax",
+          transform: `translate(-50%, -50%) scale(${lifting ? 1.14 : 1})`,
+          transition: "transform 1400ms cubic-bezier(0.4, 0, 0.2, 1)",
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--sun) 70%, transparent) 0%, color-mix(in oklab, var(--sun) 24%, transparent) 30%, transparent 62%)",
+        }}
+      />
+
+      {/* Ground: three bands receding into haze. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-[42%]"
+        style={{
+          transform: lifting ? "translateY(14%)" : "translateY(0)",
+          transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <svg
+          viewBox="0 0 1440 420"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+        >
+          <path
+            d="M0 150 C200 118 360 146 560 138 C780 128 940 156 1140 144 C1280 136 1370 148 1440 142 L1440 420 L0 420 Z"
+            fill="var(--ground-far)"
+            opacity="0.5"
+          />
+          <path
+            d="M0 232 C220 198 400 228 620 220 C840 212 1000 240 1200 228 C1320 220 1390 230 1440 224 L1440 420 L0 420 Z"
+            fill="var(--ground)"
+            opacity="0.34"
+          />
+          <path
+            d="M0 318 C240 288 420 320 660 312 C880 304 1040 330 1240 318 C1340 312 1400 320 1440 316 L1440 420 L0 420 Z"
+            fill="var(--canopy)"
+            opacity="0.3"
+          />
+        </svg>
+      </div>
+
+      {/* Content */}
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center px-6"
+        style={{
+          transform: lifting ? "translateY(-26px)" : "translateY(0)",
+          transition: "transform 1100ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <div className="relative h-[40svh] max-h-[400px] w-[min(78vw,380px)]">
           <LivingPortrait
             frames={frames}
             alt={`A drawn portrait of ${name}`}
@@ -100,40 +160,47 @@ export function Curtain({
           />
         </div>
 
-        <div className="relative mt-4 text-center">
-          <p className="display text-[clamp(1.5rem,3.4vw,2.2rem)] font-semibold leading-tight text-[var(--ink)]">
+        <div className="relative mt-3 text-center">
+          <p className="display text-[clamp(1.55rem,4.2vw,2.35rem)] leading-tight text-[var(--ink)]">
             {name}
           </p>
           {role && (
-            <p className="stamp mt-2 text-[9.5px] text-[var(--ink-faint)]">
+            <p className="stamp mt-2.5 text-[9px] text-[var(--ink-faint)]">
               {role}
             </p>
           )}
 
           <span
             aria-hidden="true"
-            className="mx-auto mt-7 block h-px w-14"
-            style={{ background: "var(--oxide)", opacity: 0.5 }}
+            className="mx-auto mt-6 block h-px w-12"
+            style={{ background: "var(--accent)", opacity: 0.55 }}
           />
 
-          <p className="stamp mt-6 text-[10px] text-[var(--ink-soft)]">
-            Diary of a Commodity Trader
+          <p className="stamp mt-5 text-[10px] text-[var(--ink-soft)]">
+            {title}
           </p>
         </div>
 
         <div
-          className="relative mt-8 h-px w-40 overflow-hidden"
-          style={{ background: "rgba(36,26,16,0.12)" }}
+          className="relative mt-9 h-px w-36 overflow-hidden"
+          style={{
+            background: "color-mix(in oklab, var(--ink) 12%, transparent)",
+          }}
         >
           <span
             className="absolute inset-y-0 left-0 w-1/3"
             style={{
-              background: "var(--oxide)",
+              background: "var(--accent)",
               animation: "curtain-sweep 1.6s ease-in-out infinite",
             }}
           />
         </div>
       </div>
+
+      <div
+        className="grain pointer-events-none absolute inset-0"
+        style={{ ["--grain-opacity" as string]: "0.2" }}
+      />
 
       <style>{`
         @keyframes curtain-sweep {
