@@ -10,7 +10,7 @@ export const SITE = {
   description:
     "Field notes, arguments and second thoughts from twenty years of moving African commodities — written in the open, kept in one place.",
   url: "https://diary-of-a-commodity-trader.vercel.app",
-  linkedin: "https://www.linkedin.com/in/",
+  linkedin: "https://www.linkedin.com/in/ayodejiobalogun/",
 
   /**
    * The splash and frontispiece drawings, in order: looking left,
