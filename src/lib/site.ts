@@ -18,6 +18,7 @@ export const SITE = {
    * aligned on the top of the head so the turn does not bob.
    */
   portraitFrames: ["/portrait-0.webp", "/portrait-1.webp", "/portrait-2.webp"],
+  portraitVideo: "/deji.webm",
 
   /**
    * The photographs the hanging pods dissolve into, in the order the
