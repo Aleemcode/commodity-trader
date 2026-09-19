@@ -8,7 +8,7 @@ export const SITE = {
   author: "Ayodeji Balogun",
   role: "CEO, AFEX",
   description:
-    "Field notes, arguments and second thoughts from twenty years of moving African commodities — written in the open, kept in one place.",
+    "Field notes, arguments, and second thoughts from twenty years of moving African commodities. Written in the open, kept in one place.",
   url: "https://diary-of-a-commodity-trader.vercel.app",
   linkedin: "https://www.linkedin.com/in/ayodejiobalogun/",
 

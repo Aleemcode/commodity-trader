@@ -56,7 +56,7 @@ export function LifelineVolumeCard({
       style={{ width }}
     >
       <span
-        className="relative block origin-left transition-[transform,filter] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover/vol:-translate-y-1.5 group-hover/vol:[transform:rotateY(-13deg)_rotateX(3deg)_translateY(-6px)] group-focus-visible/vol:[transform:rotateY(-13deg)]"
+        className="relative block origin-left transition-[transform,filter] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover/vol:-translate-y-1.5 group-hover/vol:[transform:rotateY(-13deg)_rotateX(3deg)_translateY(-6px)] group-focus-visible/vol:[transform:rotateY(-13deg)] group-active/vol:scale-[0.98]"
         style={{
           transformStyle: "preserve-3d",
           aspectRatio: "3 / 4",

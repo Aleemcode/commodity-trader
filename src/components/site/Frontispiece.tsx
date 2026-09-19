@@ -67,11 +67,16 @@ export function Frontispiece({ variant }: { variant: "column" | "hero" }) {
         </p>
       </div>
 
-      {/* On a phone the timeline is below the fold, so say so. */}
+      {/* Structural anchor before the timeline on mobile */}
       {!column && (
-        <p className="stamp mt-10 animate-pulse text-[9px] text-[var(--ink-faint)]">
-          Scroll for the diary ↓
-        </p>
+        <span
+          aria-hidden="true"
+          className="mx-auto mt-10 block h-px w-16"
+          style={{
+            background:
+              "linear-gradient(to right, transparent, color-mix(in oklab, var(--ink) 22%, transparent), transparent)",
+          }}
+        />
       )}
 
       {/* On desktop the rail leaves from here. */}

@@ -67,7 +67,7 @@ export function CocoaPod({
       >
         <button
           type="button"
-          aria-label={photo ? `${alt} — see the real thing` : alt}
+          aria-label={photo ? `${alt} - see the photograph` : alt}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           onFocus={() => setOpen(true)}

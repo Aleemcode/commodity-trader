@@ -226,6 +226,7 @@ body * {
     "opsz" 24;
   letter-spacing: -0.022em;
   font-weight: 620;
+  text-wrap: balance;
 }
 
 /* Space Grotesk at reading length needs more air than a serif does —
@@ -235,6 +236,7 @@ body * {
   font-size: 15px;
   line-height: 1.72;
   letter-spacing: -0.003em;
+  text-wrap: pretty;
 }
 
 .stamp {
@@ -243,6 +245,31 @@ body * {
   letter-spacing: 0.18em;
   font-size: 0.6875rem;
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap !important;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Tactile Feedback (taste-skill Section 4.5 & Redesign Section 4)
+ * ------------------------------------------------------------------ */
+
+.btn-tactile {
+  white-space: nowrap !important;
+  user-select: none;
+  transition:
+    transform 140ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 140ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.btn-tactile:hover {
+  transform: translateY(-0.5px);
+}
+
+.btn-tactile:active {
+  transform: translateY(1px) scale(0.985) !important;
 }
 
 .diary-dropcap::first-letter {

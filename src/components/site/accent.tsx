@@ -105,7 +105,7 @@ export function AccentSwitcher({ className }: { className?: string }) {
             aria-label={option.label}
             title={option.label}
             onClick={() => setAccent(option.id)}
-            className="grid h-7 w-7 cursor-pointer place-items-center rounded-full transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="grid h-7 w-7 cursor-pointer place-items-center rounded-full transition-transform duration-150 hover:scale-110 active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{
               outlineColor: "var(--accent)",
               boxShadow: active

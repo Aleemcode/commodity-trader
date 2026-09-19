@@ -438,7 +438,7 @@ export function DiaryBook({
       className="fixed inset-0 z-[60] flex flex-col"
       role="dialog"
       aria-modal="true"
-      aria-label={`${entry.title} — diary entry`}
+      aria-label={`${entry.title}: diary entry`}
     >
       {measurer}
 
@@ -464,17 +464,17 @@ export function DiaryBook({
           Diary of a Commodity Trader
         </p>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={toggleMute}
             aria-label={muted ? "Turn page sound on" : "Turn page sound off"}
-            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+            className="btn-tactile rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)] active:scale-90"
           >
             {muted ? (
-              <VolumeX className="h-3.5 w-3.5" strokeWidth={1.6} />
+              <VolumeX className="h-3.5 w-3.5" strokeWidth={1.75} />
             ) : (
-              <Volume2 className="h-3.5 w-3.5" strokeWidth={1.6} />
+              <Volume2 className="h-3.5 w-3.5" strokeWidth={1.75} />
             )}
           </button>
           <button
@@ -484,9 +484,9 @@ export function DiaryBook({
               onClose()
             }}
             aria-label="Close the diary"
-            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+            className="btn-tactile rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)] active:scale-90"
           >
-            <X className="h-3.5 w-3.5" strokeWidth={1.6} />
+            <X className="h-3.5 w-3.5" strokeWidth={1.75} />
           </button>
         </div>
       </div>
@@ -583,9 +583,9 @@ export function DiaryBook({
             onClick={goPrevious}
             disabled={spread <= 0}
             aria-label="Previous page"
-            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
+            className="btn-tactile rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] active:scale-90 disabled:cursor-default disabled:opacity-25"
           >
-            <ChevronLeft className="h-4 w-4" strokeWidth={1.6} />
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.75} />
           </button>
 
           <p className="stamp min-w-28 text-center text-[9px] text-[var(--ink-faint)]">
@@ -601,9 +601,9 @@ export function DiaryBook({
             onClick={goNext}
             disabled={spread >= lastSpread}
             aria-label="Next page"
-            className="rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] disabled:opacity-25"
+            className="btn-tactile rounded-full border border-[color-mix(in_oklab,var(--ink)_20%,transparent)] p-2 text-[var(--ink-soft)] transition-[color,border-color,opacity] hover:border-[var(--accent)]/60 hover:text-[var(--accent)] active:scale-90 disabled:cursor-default disabled:opacity-25"
           >
-            <ChevronRight className="h-4 w-4" strokeWidth={1.6} />
+            <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
           </button>
         </div>
 
@@ -616,7 +616,7 @@ export function DiaryBook({
               onClose()
             }}
             aria-label="Close diary entry"
-            className="stamp flex items-center gap-1.5 rounded-full border border-[color-mix(in_oklab,var(--ink)_22%,transparent)] bg-[color-mix(in_oklab,var(--paper)_92%,transparent)] px-5 py-2 text-[9.5px] text-[var(--ink-soft)] shadow-sm backdrop-blur transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] active:scale-95"
+            className="stamp btn-tactile flex items-center gap-1.5 rounded-full border border-[color-mix(in_oklab,var(--ink)_22%,transparent)] bg-[color-mix(in_oklab,var(--paper)_92%,transparent)] px-5 py-2 text-[9.5px] text-[var(--ink-soft)] shadow-sm backdrop-blur transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] active:scale-95"
           >
             <X className="h-3.5 w-3.5 text-[var(--ink-faint)]" strokeWidth={2} />
             <span>Close entry</span>

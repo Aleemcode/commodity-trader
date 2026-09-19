@@ -215,7 +215,7 @@ export function Curtain({
               ref={enterRef}
               type="button"
               onClick={open}
-              className="stamp group/enter cursor-pointer rounded-full border px-7 py-3 text-[9.5px] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="stamp btn-tactile group/enter cursor-pointer rounded-full border px-8 py-3.5 text-[9.5px] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4"
               style={
                 {
                   color: "var(--accent)",
